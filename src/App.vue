@@ -1,14 +1,16 @@
 <template>
 <div class="container">
-<h1>Hi</h1>
+<Header title="Task Tracker" />
 </div>
 </template>
 
 <script>
+import Header from "./components/Header.vue";
 
 export default {
   name: 'App',
   components: {
+    Header
   }
 }
 </script>
@@ -21,14 +23,14 @@ export default {
   padding: 0;
 }
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 .container {
   max-width: 500px;
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
-  border: 1px solid steelblue;
+  border: 3px solid green;
   padding: 30px;
   border-radius: 5px;
 }
