@@ -3,6 +3,7 @@
     v-for="task in tasks" 
     v-bind:key="task.id">
         <Task
+        @toggle-reminder="$emit('toggle-reminder', task.id)" 
         @delete-task="$emit('delete-task', task.id)" 
         :task="task"
         />
@@ -20,6 +21,6 @@ export default {
     components: {
         Task
     },
-    emits: ["delete-task"]
+    emits: ["delete-task", "toggle-reminder"]
 }
 </script>
