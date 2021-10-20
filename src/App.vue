@@ -1,6 +1,7 @@
 <template>
 <div class="container">
 <Header title="Task Tracker" />
+<AddTask @add-task="addTask" />
 <Tasks 
 @toggle-reminder="toggleReminder" 
 @delete-task="deleteTask" 
@@ -12,12 +13,14 @@
 <script>
 import Header from "./components/Header.vue";
 import Tasks from "./components/Tasks.vue";
+import AddTask from "./components/AddTask.vue";
 
 export default {
   name: 'App',
   components: {
     Header,
     Tasks,
+    AddTask
   },
   data() {
     return {
@@ -25,16 +28,18 @@ export default {
     }
   },
   methods: {
+    addTask(task) {
+      this.tasks = [...this.tasks, task]
+    },
     deleteTask(id) {
     if(confirm("Are you sure?")) {
       this.tasks = this.tasks.filter((task) => task.id !== id) 
     }
     },
     toggleReminder(id) {
-      console.log(id)
-      this.tasks = this.tasks.map((task)=> {
-        task.id === id ? {...task, reminder: !task.reminder} : task
-      })
+     this.tasks = this.tasks.map((task)=> {
+      return task.id === id ? {...task, reminder: !task.reminder} : task
+     })
     },
   },
   created() {
@@ -70,16 +75,18 @@ export default {
   padding: 0;
 }
 body {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Ubuntu', sans-serif !important;
+  background: gray;
 }
 .container {
   max-width: 500px;
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
-  border: 3px solid green;
+  border: 5px solid green;
   padding: 30px;
-  border-radius: 5px;
+  border-radius: 10px;
+  background: white;
 }
 .btn {
   display: inline-block;
