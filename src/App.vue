@@ -1,13 +1,17 @@
 <template>
 <div class="container">
+<!--Toogle add task event! -->
 <Header
 @toggle-add-task="toggleAddTask"
 title="Task Tracker" 
 :showAddTask="showAddTask"
 />
+<!---->
 <div v-show="showAddTask">
 <AddTask @add-task="addTask" />
 </div>
+<!--Toggle true/false the reminder-->
+<!--Delete Task event-->
 <Tasks 
 @toggle-reminder="toggleReminder" 
 @delete-task="deleteTask" 
@@ -41,11 +45,14 @@ export default {
     addTask(task) {
       this.tasks = [...this.tasks, task]
     },
+    // We loop through ids and filter the Id that we clicked on! 
     deleteTask(id) {
     if(confirm("Are you sure?")) {
       this.tasks = this.tasks.filter((task) => task.id !== id) 
     }
     },
+    // Map through tasks and first of all we make a copy of previous tasks and set the reminder to opposite of what reminder is
+    // So if ots  false we switch it to true if its false we switch it to true! 
     toggleReminder(id) {
      this.tasks = this.tasks.map((task)=> {
       return task.id === id ? {...task, reminder: !task.reminder} : task
@@ -53,6 +60,7 @@ export default {
     },
   },
   created() {
+    // Dummy tasks !!!
     this.tasks = [
       {
         id: 1,

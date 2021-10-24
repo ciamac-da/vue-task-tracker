@@ -1,4 +1,7 @@
 <template>
+ <!--Using double click event we toggle the reminder(We switch the reminder to true/false) --> 
+ <!--Based on the condition of reminder we change the color of label of tasks!-->
+ <!--Also there is delete event where we have font awesome-->
  <div 
  @dblclick="$emit('toggle-reminder', task.id)"
  :class='[task.reminder ? "reminder" : "", "task"]'>
@@ -12,6 +15,7 @@
 <script>
 export default {
     name: "Task",
+    // Here is a prop called task is required, and basically its an Object!
     props: {
         task: Object
     }
