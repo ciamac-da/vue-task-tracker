@@ -58,29 +58,19 @@ export default {
       return task.id === id ? {...task, reminder: !task.reminder} : task
      })
     },
+    async fetchTasks() {
+      const res = await fetch("api/tasks")
+      const data = await res.json()
+      return data
+    },
+     async fetchTask(id) {
+      const res = await fetch(`api/${id}`)
+      const data = await res.json()
+      return data
+    }
   },
-  created() {
-    // Dummy tasks !!!
-    this.tasks = [
-      {
-        id: 1,
-        text: "Doctors Appointment",
-        day: "March 1st at 2:30pm",
-        reminder: true
-      },
-      {
-        id: 2,
-        text: "Gym",
-        day: "March 11st at 2:30pm",
-        reminder: true
-      },
-      {
-        id: 3,
-        text: "Meeting",
-        day: "March 2st at 2:30pm",
-        reminder: false
-      }
-    ]
+  async created() {
+    this.tasks = await this.fetchTasks()
   }
 }
 </script>
