@@ -2,6 +2,7 @@
   <header>
     {{title}}
     <Button
+    v-show="homePage"
     @btn-click="$emit('toggle-add-task')"
     :text="showAddTask ? 'Close' : 'Add Task'" 
     :color="showAddTask ? 'red' : 'green'"/>
@@ -11,16 +12,20 @@
 import Button from './Button.vue';
 
 export default {
-  // First of all importing Button component
   components: { Button },
-  // Naming the current component which is Header
   name: "Header",
-  // Define 2 props! 
   props: {
-    //the first one is title which is a string
     title: String,
-    // The second one is showAddTask which is a Boolean and we need this to switch addTasks!!!
     showAddTask: Boolean
+    },
+    computed: {
+      homePage() {
+        if(this.$route.path === "/") {
+          return true
+        } else {
+          return false
+        }
+      }
     }
 };
 </script>
