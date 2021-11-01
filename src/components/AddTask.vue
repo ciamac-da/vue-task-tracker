@@ -27,10 +27,6 @@ export default {
   // Add task component 
   name: 'AddTask',
   data() {
-    // There is 3 datas here! 
-    //the text is initially empty 
-    //Day is initially empty 
-    //Reminder is initially false, and will switch to true using a double click event! 
     return {
       text: '',
       day: '',
@@ -38,7 +34,6 @@ export default {
     }
   },
   methods: {
-    // Submit event to throw an error if the text is empty
     onSubmit(e) {
       e.preventDefault()
       if (!this.text && this.text.trim()) {
@@ -46,8 +41,7 @@ export default {
         return
       }
       const newTask = {
-        // To get a random id 
-        id: Math.floor(Math.random() * 100000),
+        //id: Math.floor(Math.random() * 100000),
         text: this.text,
         day: this.day,
         reminder: this.reminder,

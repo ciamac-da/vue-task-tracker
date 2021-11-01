@@ -42,20 +42,41 @@ export default {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask
     },
-    addTask(task) {
-      this.tasks = [...this.tasks, task]
+    async addTask(task) {
+      const res = await fetch("api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+          body: JSON.stringify(task),
+      })
+      const data = await res.json()
+      this.tasks = [...this.tasks, data]
     },
-    // We loop through ids and filter the Id that we clicked on! 
-    deleteTask(id) {
+    async deleteTask(id) {
     if(confirm("Are you sure?")) {
-      this.tasks = this.tasks.filter((task) => task.id !== id) 
+      const res = await fetch(`api/tasks/${id}`, {
+        method: "DELETE"
+      })
+      res.status === 200 
+      ? (this.tasks = this.tasks.filter( 
+        (task) => task.id !== id))
+      : alert("Error deleting task!")
     }
     },
-    // Map through tasks and first of all we make a copy of previous tasks and set the reminder to opposite of what reminder is
-    // So if ots  false we switch it to true if its false we switch it to true! 
-    toggleReminder(id) {
+    async toggleReminder(id) { 
+      const taskToToggle = await this.fetchTasks(id)
+      const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+      const res = await fetch(`api/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updTask)
+      })
+      const data = await res.json()
      this.tasks = this.tasks.map((task)=> {
-      return task.id === id ? {...task, reminder: !task.reminder} : task
+      return task.id === id ? {...task, reminder: data.reminder} : task
      })
     },
     async fetchTasks() {
